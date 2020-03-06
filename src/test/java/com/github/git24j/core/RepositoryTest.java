@@ -32,7 +32,7 @@ public class RepositoryTest extends TestBase {
     @Test
     public void initOptions() {
         Repository.InitOptions initOptions =
-                Repository.InitOptions.defaultOpts(Repository.InitOptions.VERSION);
+                Repository.InitOptions.defaultOpts();
         Assert.assertEquals(Repository.InitOptions.VERSION, initOptions.getVersion());
     }
 
@@ -50,7 +50,7 @@ public class RepositoryTest extends TestBase {
         Path repoPath = folder.getRoot().toPath();
         String initPath = repoPath.toString();
         Repository.InitOptions opts =
-                Repository.InitOptions.defaultOpts(Repository.InitOptions.VERSION);
+                Repository.InitOptions.defaultOpts();
         try (Repository repo = Repository.initExt(initPath, opts)) {
             Assert.assertNotNull(repo);
             Assert.assertTrue(repo.isEmpty());

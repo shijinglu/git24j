@@ -7,6 +7,11 @@ import org.junit.rules.TemporaryFolder;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.EnumSet;
+
+import static com.github.git24j.core.Repository.InitFlagT.BARE;
+import static com.github.git24j.core.Repository.InitFlagT.MKPATH;
+import static com.github.git24j.core.Repository.InitModeT.SHARED_GROUP;
 
 public class BasicOperationsTest extends TestBase {
     @Rule public TemporaryFolder folder = new TemporaryFolder();
@@ -21,10 +26,16 @@ public class BasicOperationsTest extends TestBase {
 
     @Test
     public void initWithOptions() throws IOException {
-        Path path = folder.newFolder("initWithOptions").toPath();
-        Repository.InitOptions opts =  Repository.InitOptions.defaultOpts(1);
-        try (Repository repo = Repository.initExt(path.toString(), opts)) {
+        Repository.InitOptions opts =  Repository.InitOptions.defaultOpts();
+        opts.setDescription("My repository has a custom description");
+        opts.setFlags(EnumSet.of(MKPATH));
+        try (Repository repo = Repository.initExt(folder.newFolder("tmp").getAbsolutePath(), opts)) {
             Assert.assertTrue(repo.headUnborn());
         }
+    }
+
+    @Test
+    public void simpleClone() {
+        
     }
 }
